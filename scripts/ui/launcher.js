@@ -18,8 +18,8 @@ export function addNazumiSceneControl(controls) {
 
   tokenControls.tools[TOOL_NAME] = {
     name: TOOL_NAME,
-    title: "NAZUMI.Open",
-    icon: "fa-solid fa-book-open",
+    title: "Nazumi Compendium",
+    icon: "fa-solid fa-book",
     order: 100,
     button: true,
     visible: true,
