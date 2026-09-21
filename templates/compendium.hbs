@@ -3,7 +3,7 @@
   <header class="nazumi-header">
     <div class="nazumi-title-block">
       <span class="nazumi-kicker">ARQUIVO DE DESCOBERTAS</span>
-      <h1>COMPENDIO DE NAZUMI</h1>
+      <h1>COMPÊNDIO DE NAZUMI</h1>
       <div class="nazumi-rule"><span></span><i class="fa-solid fa-diamond"></i><span></span></div>
     </div>
     <div class="nazumi-header-actions">
@@ -18,7 +18,7 @@
     </div>
   </header>
 
-  <nav class="nazumi-category-bar" aria-label="Categorias do compendio">
+  <nav class="nazumi-category-bar" aria-label="Categorias do compêndio">
     {{#each categories}}
       <button type="button" class="nazumi-category {{#if active}}active{{/if}}" data-action="selectCategory" data-category="{{id}}">
         <i class="{{icon}}"></i>
@@ -43,7 +43,7 @@
       {{#if sourceIsDemo}}
         <div class="nazumi-demo-notice">
           <i class="fa-solid fa-circle-info"></i>
-          <span>Modo demonstracao ativo. Configure um Compendium de Items nas configuracoes do modulo para usar seus itens reais.</span>
+          <span>Modo demonstração ativo. Configure um Compendium de Items nas configurações do módulo para usar seus itens reais.</span>
         </div>
       {{/if}}
 
@@ -121,6 +121,6 @@
 
   <footer class="nazumi-footer">
     <span><i class="fa-solid fa-database"></i> {{sourceLabel}}</span>
-    <span>Alt+C · abrir/fechar pelo atalho configuravel</span>
+    <span>Alt+C · abrir/fechar pelo atalho configurável</span>
   </footer>
 </div>

@@ -1,7 +1,7 @@
 {
   "id": "nazumi-compendium",
   "title": "Nazumi Compendium",
-  "description": "Compendio imersivo de itens para Foundry VTT v13, com descoberta por jogador, itens desconhecidos, marcador NOVO, inspector, audio e controles de GM.",
+  "description": "Compêndio imersivo de itens para Foundry VTT v13, com descoberta por jogador, itens desconhecidos, marcador NOVO, inspetor, áudio e controles de GM.",
   "version": "0.2.0",
   "url": "https://github.com/Fioruci/Nazumi-Compendium",
   "manifest": "https://github.com/Fioruci/Nazumi-Compendium/releases/latest/download/module.json",

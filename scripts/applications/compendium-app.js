@@ -81,8 +81,11 @@ export class NazumiCompendium extends HandlebarsApplicationMixin(ApplicationV2) 
 
     if (!game.user.isGM) await DiscoveryService.markViewed(key);
     AudioService.play("inspect");
-    new ItemInspector({ sourceKey: key }).render({ force: true });
-    this.render({ force: true });
+    await this.render({ force: true });
+
+    const inspector = new ItemInspector({ sourceKey: key });
+    await inspector.render({ force: true });
+    inspector.bringToFront();
   }
 
   static async refreshSource() {
@@ -147,14 +150,14 @@ export class NazumiCompendium extends HandlebarsApplicationMixin(ApplicationV2) 
       discovered: unlocked,
       isNew: !game.user.isGM && state.discovered === true && state.viewed !== true,
       displayName: locked ? "????????????" : entry.name,
-      displaySubtitle: locked ? "Nao descoberto" : entry.subtitle,
-      displayLore: locked ? "Este registro ainda nao foi descoberto." : entry.lore,
+      displaySubtitle: locked ? "Não descoberto" : entry.subtitle,
+      displayLore: locked ? "Este registro ainda não foi descoberto." : entry.lore,
       displayMechanics: locked ? "" : entry.mechanics,
       displayRarity: locked ? "Desconhecido" : entry.rarityLabel,
       displayIcon: locked ? "fa-solid fa-question" : entry.icon,
       displayImg: locked ? null : entry.img,
       searchText: locked
-        ? "nao descoberto desconhecido"
+        ? "não descoberto desconhecido"
         : `${entry.name} ${entry.subtitle} ${entry.categoryLabel} ${entry.rarityLabel}`.toLocaleLowerCase(),
       selected: entry.sourceKey === this._selectedKey
     };
@@ -162,7 +165,7 @@ export class NazumiCompendium extends HandlebarsApplicationMixin(ApplicationV2) 
 
   #sourceLabel() {
     const source = SourceService.sourceSetting;
-    if (!source || source === "demo") return "Modo demonstracao";
+    if (!source || source === "demo") return "Modo demonstração";
     if (source.toLowerCase() === "world") return "Items do mundo";
     return source;
   }

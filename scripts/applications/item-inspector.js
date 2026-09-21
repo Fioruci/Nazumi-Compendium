@@ -57,7 +57,7 @@ export class ItemInspector extends HandlebarsApplicationMixin(ApplicationV2) {
       await this.render({ force: true });
     } catch (error) {
       console.error(`${MODULE_ID} | Falha ao alterar a descoberta para '${userId}'.`, error);
-      ui.notifications?.error(`Nazumi Compendium: nao foi possivel atualizar ${user.name}.`);
+      ui.notifications?.error(`Nazumi Compendium: não foi possível atualizar ${user.name}.`);
       control.disabled = false;
       control.removeAttribute("aria-busy");
     }
@@ -70,7 +70,7 @@ export class ItemInspector extends HandlebarsApplicationMixin(ApplicationV2) {
       await this.render({ force: true });
     } catch (error) {
       console.error(`${MODULE_ID} | Falha ao revelar o item para todos.`, error);
-      ui.notifications?.error("Nazumi Compendium: nao foi possivel revelar o item para todos.");
+      ui.notifications?.error("Nazumi Compendium: não foi possível revelar o item para todos.");
     }
   }
 
@@ -81,7 +81,7 @@ export class ItemInspector extends HandlebarsApplicationMixin(ApplicationV2) {
       await this.render({ force: true });
     } catch (error) {
       console.error(`${MODULE_ID} | Falha ao ocultar o item de todos.`, error);
-      ui.notifications?.error("Nazumi Compendium: nao foi possivel ocultar o item de todos.");
+      ui.notifications?.error("Nazumi Compendium: não foi possível ocultar o item de todos.");
     }
   }
 
@@ -91,11 +91,20 @@ export class ItemInspector extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!entry?.uuid) return;
     const doc = await fromUuid(entry.uuid);
     if (!doc?.sheet) return;
+
     try {
-      doc.sheet.render({ force: true });
+      await doc.sheet.render({ force: true });
     } catch (_error) {
-      doc.sheet.render(true);
+      await doc.sheet.render(true);
     }
+
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    doc.sheet.bringToFront?.();
+
+    const sheetElement = doc.sheet.element instanceof HTMLElement
+      ? doc.sheet.element
+      : doc.sheet.element?.[0];
+    sheetElement?.classList.add("nazumi-source-sheet");
   }
 
   async _prepareContext(options) {
@@ -126,9 +135,9 @@ export class ItemInspector extends HandlebarsApplicationMixin(ApplicationV2) {
         : {
             ...entry,
             name: "????????????",
-            subtitle: "Nao descoberto",
+            subtitle: "Não descoberto",
             rarityLabel: "Desconhecido",
-            lore: "Este registro ainda nao foi descoberto.",
+            lore: "Este registro ainda não foi descoberto.",
             mechanics: "",
             img: null,
             icon: "fa-solid fa-question"

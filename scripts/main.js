@@ -3,12 +3,12 @@ import { NazumiCompendium } from "./applications/compendium-app.js";
 import { DiscoveryPopup } from "./applications/discovery-popup.js";
 import { DiscoveryService } from "./services/discovery-service.js";
 import { SourceService } from "./services/source-service.js";
-import { ensureLauncherButton } from "./ui/launcher.js";
+import { addNazumiSceneControl, refreshNazumiSceneControl } from "./ui/launcher.js";
 
 function registerSettings() {
   game.settings.register(MODULE_ID, "sourcePack", {
     name: "Fonte dos itens",
-    hint: "Deixe vazio para o modo demonstracao. Informe 'world' para Items do mundo marcados com a flag enabled, ou o collection id de um Compendium de Items (ex.: meu-modulo.reliquias).",
+    hint: "Deixe vazio para o modo demonstração. Informe 'world' para Items do mundo marcados com a flag enabled, ou o collection id de um Compendium de Items (ex.: meu-modulo.reliquias).",
     scope: "world",
     config: true,
     type: String,
@@ -20,7 +20,7 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, "showUndiscovered", {
-    name: "Exibir slots nao descobertos",
+    name: "Exibir slots não descobertos",
     hint: "Quando ativo, jogadores veem registros bloqueados como ????????.",
     scope: "world",
     config: true,
@@ -31,7 +31,7 @@ function registerSettings() {
 
   game.settings.register(MODULE_ID, "autoDiscoverInventory", {
     name: "Descobrir ao receber Item",
-    hint: "Tenta desbloquear automaticamente a entrada quando um Item correspondente e criado no inventario de um Actor. Usa sourceId, sourceKey ou nome+tipo para encontrar a entrada.",
+    hint: "Tenta desbloquear automaticamente a entrada quando um Item correspondente é criado no inventário de um Actor. Usa sourceId, sourceKey ou nome+tipo para encontrar a entrada.",
     scope: "world",
     config: true,
     type: Boolean,
@@ -39,18 +39,18 @@ function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, "showLauncher", {
-    name: "Exibir botao do Compendio",
-    hint: "Mostra um botao discreto COMPENDIO na interface do Foundry.",
+    name: "Exibir controle do Compêndio",
+    hint: "Mostra o botão do Compêndio nos controles de tokens da barra lateral esquerda.",
     scope: "client",
     config: true,
     type: Boolean,
     default: true,
-    onChange: () => ensureLauncherButton()
+    onChange: () => refreshNazumiSceneControl()
   });
 
   game.settings.register(MODULE_ID, "audioEnabled", {
     name: "Sons da interface",
-    hint: "Ativa os efeitos sonoros do Compendio neste navegador.",
+    hint: "Ativa os efeitos sonoros do Compêndio neste navegador.",
     scope: "client",
     config: true,
     type: Boolean,
@@ -59,7 +59,7 @@ function registerSettings() {
 
   game.settings.register(MODULE_ID, "audioVolume", {
     name: "Volume dos sons",
-    hint: "Volume dos efeitos sonoros do Compendio.",
+    hint: "Volume dos efeitos sonoros do Compêndio.",
     scope: "client",
     config: true,
     type: Number,
@@ -74,8 +74,8 @@ function registerSettings() {
 
 function registerKeybindings() {
   game.keybindings.register(MODULE_ID, "openCompendium", {
-    name: "Abrir Compendio de Nazumi",
-    hint: "Abre a interface principal do Compendio.",
+    name: "Abrir Compêndio de Nazumi",
+    hint: "Abre a interface principal do Compêndio.",
     editable: [{ key: "KeyC", modifiers: ["ALT"] }],
     restricted: false,
     onDown: () => {
@@ -88,7 +88,7 @@ function registerKeybindings() {
 async function tagItem(uuid, metadata = {}) {
   if (!game.user.isGM) throw new Error("Nazumi Compendium: apenas o GM pode configurar metadados de Items.");
   const item = await fromUuid(uuid);
-  if (!item || item.documentName !== "Item") throw new Error(`Nazumi Compendium: '${uuid}' nao e um Item valido.`);
+  if (!item || item.documentName !== "Item") throw new Error(`Nazumi Compendium: '${uuid}' não é um Item válido.`);
 
   const allowed = ["enabled", "category", "rarity", "subtitle", "lore", "mechanics", "icon", "sort", "sourceKey"];
   for (const key of allowed) {
@@ -102,7 +102,7 @@ async function tagItem(uuid, metadata = {}) {
 
 async function discover(sourceKey, userId = game.user.id, { popup = true } = {}) {
   const user = game.users.get(userId);
-  if (!user) throw new Error(`Nazumi Compendium: usuario '${userId}' nao encontrado.`);
+  if (!user) throw new Error(`Nazumi Compendium: usuário '${userId}' não encontrado.`);
   const alreadyKnown = DiscoveryService.isDiscovered(sourceKey, user);
   const result = await DiscoveryService.discover(sourceKey, userId, { popup });
   if (popup && !alreadyKnown && userId === game.user.id) await DiscoveryPopup.show(sourceKey);
@@ -179,7 +179,8 @@ function registerAutoDiscovery() {
 }
 
 Hooks.once("init", () => {
-  console.log(`${MODULE_ID} | Inicializando v0.1.0`);
+  const version = game.modules.get(MODULE_ID)?.version ?? "desconhecida";
+  console.log(`${MODULE_ID} | Inicializando v${version}`);
   registerSettings();
   registerKeybindings();
 });
@@ -188,9 +189,11 @@ Hooks.once("ready", () => {
   exposeApi();
   registerSocket();
   registerAutoDiscovery();
-  ensureLauncherButton();
+  refreshNazumiSceneControl();
   console.log(`${MODULE_ID} | Pronto. API: game.nazumiCompendium`);
 });
+
+Hooks.on("getSceneControlButtons", addNazumiSceneControl);
 
 Hooks.on("updateUser", (user, changes) => {
   if (user.id !== game.user.id) return;

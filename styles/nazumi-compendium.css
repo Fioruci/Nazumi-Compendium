@@ -29,8 +29,9 @@
   z-index: 9998;
 }
 
-#nazumi-item-inspector { z-index: 10008; }
-#nazumi-discovery-popup { z-index: 10018; pointer-events: none; }
+#nazumi-item-inspector { z-index: 10008 !important; }
+#nazumi-discovery-popup { z-index: 10018 !important; pointer-events: none; }
+.nazumi-source-sheet { z-index: 10028 !important; }
 
 .nazumi-shell,
 .nazumi-inspector-screen,
@@ -426,27 +427,6 @@
   text-transform: uppercase;
 }
 .nazumi-footer span { display: flex; align-items: center; gap: 7px; }
-
-.nazumi-launcher-button {
-  position: fixed;
-  left: 10px;
-  bottom: 74px;
-  z-index: 120;
-  height: 34px;
-  padding: 0 11px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  border: 1px solid rgba(184,160,106,0.42);
-  border-radius: 2px;
-  background: rgba(8,9,10,0.86);
-  color: #c4b897;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.38);
-  cursor: pointer;
-  font: 9px Arial, sans-serif;
-  letter-spacing: 0.12em;
-}
-.nazumi-launcher-button:hover { border-color: var(--nazumi-gold); color: var(--nazumi-ink); background: #111313; }
 
 /* Inspector */
 .nazumi-inspector-screen { display: grid; place-items: center; padding: 4vh 5vw; }

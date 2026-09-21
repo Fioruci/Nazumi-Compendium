@@ -3,10 +3,10 @@
     "id": "wing-mark",
     "name": "Marca das Asas Partidas",
     "category": "relics",
-    "subtitle": "Reliquia Draconica",
+    "subtitle": "Relíquia Dracônica",
     "rarity": "legendary",
     "icon": "fa-solid fa-feather-pointed",
-    "mechanics": "Uma reliquia narrativa. Na versao demo ela nao altera a ficha; vincule-a a um Item real para aplicar mecanicas do seu sistema.",
+    "mechanics": "Uma relíquia narrativa. Na versão demo ela não altera a ficha; vincule-a a um Item real para aplicar mecânicas do seu sistema.",
     "lore": "Um fragmento negro, marcado por sulcos semelhantes a escamas antigas. Certas linhas parecem formar asas quando observadas contra o fogo.",
     "sort": 10
   },
@@ -14,22 +14,22 @@
     "id": "immryg-scale",
     "name": "Escama de Immryg-Umryss",
     "category": "relics",
-    "subtitle": "Vestigio Draconico",
+    "subtitle": "Vestígio Dracônico",
     "rarity": "rare",
     "icon": "fa-solid fa-dragon",
-    "mechanics": "Objeto de investigacao. Use as flags do item para substituir este texto por regras mecanicas reais.",
-    "lore": "A superficie perdeu o brilho ha muitas geracoes, mas ainda conserva uma dureza incomum e um frio que nao acompanha a temperatura do ambiente.",
+    "mechanics": "Objeto de investigação. Use as flags do item para substituir este texto por regras mecânicas reais.",
+    "lore": "A superfície perdeu o brilho há muitas gerações, mas ainda conserva uma dureza incomum e um frio que não acompanha a temperatura do ambiente.",
     "sort": 20
   },
   {
     "id": "vaelor-blade",
-    "name": "Lamina de Vaelor",
+    "name": "Lâmina de Vaelor",
     "category": "weapons",
     "subtitle": "Espada Longa",
     "rarity": "epic",
     "icon": "fa-solid fa-khanda",
-    "mechanics": "Exemplo de arma. Ao usar um Compendium real, o painel exibira a descricao do Item do sistema como informacao mecanica.",
-    "lore": "A guarda leva um brasao antigo, anterior aos registros mais recentes de Reikun. O metal escureceu, mas o fio permanece intacto.",
+    "mechanics": "Exemplo de arma. Ao usar um Compendium real, o painel exibirá a descrição do Item do sistema como informação mecânica.",
+    "lore": "A guarda leva um brasão antigo, anterior aos registros mais recentes de Reikun. O metal escureceu, mas o fio permanece intacto.",
     "sort": 30
   },
   {
@@ -40,7 +40,7 @@
     "rarity": "rare",
     "icon": "fa-solid fa-sun",
     "mechanics": "Pode ser usado como gatilho de macro ou Journal durante a campanha.",
-    "lore": "Um disco escuro sem inscricoes legiveis. No centro, um sol foi gravado e deliberadamente apagado por sucessivos cortes.",
+    "lore": "Um disco escuro sem inscrições legíveis. No centro, um sol foi gravado e deliberadamente apagado por sucessivos cortes.",
     "sort": 40
   },
   {
@@ -50,19 +50,19 @@
     "subtitle": "Chave Antiga",
     "rarity": "uncommon",
     "icon": "fa-solid fa-key",
-    "mechanics": "Item-chave de demonstracao.",
-    "lore": "Pesada demais para uma fechadura comum. Ha marcas de calor no aro e pequenos residuos minerais presos aos dentes.",
+    "mechanics": "Item-chave de demonstração.",
+    "lore": "Pesada demais para uma fechadura comum. Há marcas de calor no aro e pequenos resíduos minerais presos aos dentes.",
     "sort": 50
   },
   {
     "id": "ashen-phial",
     "name": "Frasco de Cinzas Frias",
     "category": "consumables",
-    "subtitle": "Consumivel",
+    "subtitle": "Consumível",
     "rarity": "common",
     "icon": "fa-solid fa-flask",
-    "mechanics": "Consumivel demonstrativo. Substitua por um Item real do D&D5e para usar atividades, cargas e efeitos do sistema.",
-    "lore": "As cinzas nao se dispersam com o vento. Quando o frasco e aberto, elas se acumulam na direcao de fontes antigas de magia.",
+    "mechanics": "Consumível demonstrativo. Substitua por um Item real do D&D5e para usar atividades, cargas e efeitos do sistema.",
+    "lore": "As cinzas não se dispersam com o vento. Quando o frasco é aberto, elas se acumulam na direção de fontes antigas de magia.",
     "sort": 60
   },
   {
@@ -72,19 +72,19 @@
     "subtitle": "Material",
     "rarity": "uncommon",
     "icon": "fa-solid fa-gem",
-    "mechanics": "Material de demonstracao para crafting ou investigacao.",
-    "lore": "Um fragmento mineral denso, retirado das profundezas. Pequenas veias metalicas refletem a luz com tonalidade azulada.",
+    "mechanics": "Material de demonstração para crafting ou investigação.",
+    "lore": "Um fragmento mineral denso, retirado das profundezas. Pequenas veias metálicas refletem a luz com tonalidade azulada.",
     "sort": 70
   },
   {
     "id": "magi-shackle",
-    "name": "Grilhao do Mago Antigo",
+    "name": "Grilhão do Mago Antigo",
     "category": "lore",
-    "subtitle": "Vestigio Arcano",
+    "subtitle": "Vestígio Arcano",
     "rarity": "legendary",
     "icon": "fa-solid fa-link",
-    "mechanics": "Entrada de lore demonstrativa. O Compendio pode registrar conhecimento mesmo quando o objeto nao permanece no inventario.",
-    "lore": "Runas quebradas percorrem o metal. Parte delas parece ter sido criada para conter algo; outra parte, para impedir que alguem pudesse sair.",
+    "mechanics": "Entrada de lore demonstrativa. O Compêndio pode registrar conhecimento mesmo quando o objeto não permanece no inventário.",
+    "lore": "Runas quebradas percorrem o metal. Parte delas parece ter sido criada para conter algo; outra parte, para impedir que alguém pudesse sair.",
     "sort": 80
   }
 ]

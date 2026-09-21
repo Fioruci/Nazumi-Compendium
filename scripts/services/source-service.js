@@ -44,11 +44,11 @@ export class SourceService {
   static async #loadCompendium(collectionId) {
     const pack = game.packs.get(collectionId);
     if (!pack) {
-      ui.notifications?.warn(`Nazumi Compendium: o pack '${collectionId}' nao foi encontrado. Exibindo demo.`);
+      ui.notifications?.warn(`Nazumi Compendium: o pack '${collectionId}' não foi encontrado. Exibindo demo.`);
       return this.#loadDemo();
     }
     if (pack.documentName !== "Item") {
-      ui.notifications?.error(`Nazumi Compendium: '${collectionId}' nao e um Compendium de Items.`);
+      ui.notifications?.error(`Nazumi Compendium: '${collectionId}' não é um Compendium de Items.`);
       return [];
     }
     try {
@@ -56,7 +56,7 @@ export class SourceService {
       return documents.map((item) => MetadataService.fromItem(item));
     } catch (error) {
       console.error(`${MODULE_ID} | Falha ao ler o Compendium '${collectionId}'.`, error);
-      ui.notifications?.error(`Nazumi Compendium: nao foi possivel ler '${collectionId}'. Verifique as permissoes do pack.`);
+      ui.notifications?.error(`Nazumi Compendium: não foi possível ler '${collectionId}'. Verifique as permissões do pack.`);
       return [];
     }
   }

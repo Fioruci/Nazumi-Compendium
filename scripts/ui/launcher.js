@@ -1,25 +1,34 @@
 import { MODULE_ID } from "../constants.js";
 import { NazumiCompendium } from "../applications/compendium-app.js";
 
-const BUTTON_ID = "nazumi-compendium-launcher";
+const LEGACY_BUTTON_ID = "nazumi-compendium-launcher";
+const TOOL_NAME = `${MODULE_ID}-open`;
 
-export function ensureLauncherButton() {
-  const enabled = game.settings.get(MODULE_ID, "showLauncher");
-  const existing = document.getElementById(BUTTON_ID);
-
-  if (!enabled) {
-    existing?.remove();
+export function addNazumiSceneControl(controls) {
+  const tokenControls = controls.tokens;
+  if (!tokenControls?.tools) {
+    console.warn(`${MODULE_ID} | Controles de tokens indisponíveis; o atalho Alt+C continua ativo.`);
     return;
   }
-  if (existing) return;
 
-  const button = document.createElement("button");
-  button.id = BUTTON_ID;
-  button.type = "button";
-  button.className = "nazumi-launcher-button";
-  button.title = "Abrir Compendio de Nazumi (Alt+C)";
-  button.setAttribute("aria-label", "Abrir Compendio de Nazumi");
-  button.innerHTML = '<i class="fa-solid fa-book-open"></i><span>COMPENDIO</span>';
-  button.addEventListener("click", () => NazumiCompendium.open());
-  document.body.append(button);
+  if (!game.settings.get(MODULE_ID, "showLauncher")) {
+    delete tokenControls.tools[TOOL_NAME];
+    return;
+  }
+
+  tokenControls.tools[TOOL_NAME] = {
+    name: TOOL_NAME,
+    title: "NAZUMI.Open",
+    icon: "fa-solid fa-book-open",
+    order: 100,
+    button: true,
+    visible: true,
+    onChange: () => NazumiCompendium.open()
+  };
+}
+
+export function refreshNazumiSceneControl() {
+  // Remove o launcher usado pelas versões anteriores sem exigir recarga.
+  document.getElementById(LEGACY_BUTTON_ID)?.remove();
+  if (ui.controls?.rendered) ui.controls.render({ force: true, reset: true });
 }
