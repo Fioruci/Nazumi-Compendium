@@ -40,29 +40,49 @@ export class ItemInspector extends HandlebarsApplicationMixin(ApplicationV2) {
 
   static async toggleUserDiscovery(_event, target) {
     if (!game.user.isGM) return;
-    const userId = target.dataset.userId;
+    const control = target.closest?.("[data-user-id]") ?? target;
+    const userId = control.dataset.userId;
     const user = game.users.get(userId);
     if (!user) return;
 
-    if (DiscoveryService.isDiscovered(this.sourceKey, user)) {
-      await DiscoveryService.undiscover(this.sourceKey, userId);
-    } else {
-      await DiscoveryService.discover(this.sourceKey, userId, { popup: true });
+    control.disabled = true;
+    control.setAttribute("aria-busy", "true");
+    try {
+      if (DiscoveryService.isDiscovered(this.sourceKey, user)) {
+        await DiscoveryService.undiscover(this.sourceKey, userId);
+      } else {
+        await DiscoveryService.discover(this.sourceKey, userId, { popup: true });
+      }
+      AudioService.play("navigate");
+      await this.render({ force: true });
+    } catch (error) {
+      console.error(`${MODULE_ID} | Falha ao alterar a descoberta para '${userId}'.`, error);
+      ui.notifications?.error(`Nazumi Compendium: nao foi possivel atualizar ${user.name}.`);
+      control.disabled = false;
+      control.removeAttribute("aria-busy");
     }
-    AudioService.play("navigate");
-    this.render({ force: true });
   }
 
   static async revealAll() {
     if (!game.user.isGM) return;
-    await DiscoveryService.revealAllPlayers(this.sourceKey);
-    this.render({ force: true });
+    try {
+      await DiscoveryService.revealAllPlayers(this.sourceKey);
+      await this.render({ force: true });
+    } catch (error) {
+      console.error(`${MODULE_ID} | Falha ao revelar o item para todos.`, error);
+      ui.notifications?.error("Nazumi Compendium: nao foi possivel revelar o item para todos.");
+    }
   }
 
   static async hideAll() {
     if (!game.user.isGM) return;
-    await DiscoveryService.hideFromAllPlayers(this.sourceKey);
-    this.render({ force: true });
+    try {
+      await DiscoveryService.hideFromAllPlayers(this.sourceKey);
+      await this.render({ force: true });
+    } catch (error) {
+      console.error(`${MODULE_ID} | Falha ao ocultar o item de todos.`, error);
+      ui.notifications?.error("Nazumi Compendium: nao foi possivel ocultar o item de todos.");
+    }
   }
 
   static async openSourceItem() {
