@@ -40,7 +40,7 @@ export class MetadataService {
     const mechanics = firstNonEmpty(
       item.getFlag?.(MODULE_ID, "mechanics"),
       systemDescription,
-      "Sem descricao mecanica cadastrada."
+      "Sem descrição mecânica cadastrada."
     );
     const lore = firstNonEmpty(
       item.getFlag?.(MODULE_ID, "lore"),

@@ -20,7 +20,7 @@ export class AudioService {
         sound.volume = Math.max(0, Math.min(1, volume));
       }
     } catch (error) {
-      console.warn(`${MODULE_ID} | Falha ao reproduzir audio '${event}'.`, error);
+      console.warn(`${MODULE_ID} | Falha ao reproduzir áudio '${event}'.`, error);
     }
   }
 }

@@ -22,7 +22,7 @@ export class DiscoveryService {
 
   static async setDiscovered(sourceKey, discovered, userId = game.user.id, { popup = true } = {}) {
     const user = game.users.get(userId);
-    if (!user) throw new Error(`Nazumi Compendium: usuario '${userId}' nao encontrado.`);
+    if (!user) throw new Error(`Nazumi Compendium: usuário '${userId}' não encontrado.`);
 
     const progress = this.getState(user);
     const current = progress[sourceKey] ?? {};
@@ -35,7 +35,14 @@ export class DiscoveryService {
         discoveredAt: current.discoveredAt ?? Date.now()
       };
     } else {
-      delete progress[sourceKey];
+      // O Foundry mescla flags recursivamente. Remover apenas a chave local
+      // deixaria a descoberta persistida intacta; por isso, o estado oculto
+      // precisa ser gravado explicitamente.
+      progress[sourceKey] = {
+        discovered: false,
+        viewed: false,
+        loreLevel: 0
+      };
     }
 
     await user.setFlag(MODULE_ID, "progress", progress);
@@ -50,12 +57,12 @@ export class DiscoveryService {
     }
 
     Hooks.callAll("nazumiCompendiumDiscoveryChanged", { userId, sourceKey, discovered });
-    return progress[sourceKey] ?? null;
+    return discovered ? progress[sourceKey] : null;
   }
 
   static async discover(sourceKey, userId = game.user.id, options = {}) {
     const entry = await SourceService.getEntry(sourceKey);
-    if (!entry) throw new Error(`Nazumi Compendium: item '${sourceKey}' nao existe na fonte atual.`);
+    if (!entry) throw new Error(`Nazumi Compendium: item '${sourceKey}' não existe na fonte atual.`);
     return this.setDiscovered(sourceKey, true, userId, options);
   }
 
