@@ -65,7 +65,12 @@
           </div>
           <div class="nazumi-player-list">
             {{#each players}}
-              <button type="button" class="nazumi-player-state {{#if discovered}}discovered{{/if}}" data-action="toggleUserDiscovery" data-user-id="{{id}}">
+              <button type="button"
+                      class="nazumi-player-state {{#if discovered}}discovered{{/if}}"
+                      data-action="toggleUserDiscovery"
+                      data-user-id="{{id}}"
+                      aria-pressed="{{#if discovered}}true{{else}}false{{/if}}"
+                      title="{{#if discovered}}Ocultar de {{name}}{{else}}Revelar para {{name}}{{/if}}">
                 <span class="nazumi-presence {{#if active}}online{{/if}}"></span>
                 <strong>{{name}}</strong>
                 <span>{{#if discovered}}Descoberto{{else}}Oculto{{/if}}</span>

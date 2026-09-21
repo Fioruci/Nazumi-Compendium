@@ -37,6 +37,7 @@ export class NazumiCompendium extends HandlebarsApplicationMixin(ApplicationV2) 
     this._category = "all";
     this._selectedKey = null;
     this._search = "";
+    this._gridScrollTop = 0;
     NazumiCompendium.instance = this;
   }
 
@@ -58,16 +59,18 @@ export class NazumiCompendium extends HandlebarsApplicationMixin(ApplicationV2) 
   static async selectCategory(_event, target) {
     this._category = target.dataset.category ?? "all";
     this._selectedKey = null;
+    this._gridScrollTop = 0;
     AudioService.play("navigate");
-    this.render({ force: true });
+    await this.render({ force: true });
   }
 
   static async selectItem(_event, target) {
     const key = target.dataset.sourceKey;
     if (!key) return;
+    this._gridScrollTop = this.element.querySelector(".nazumi-grid")?.scrollTop ?? 0;
     this._selectedKey = key;
     AudioService.play("navigate");
-    this.render({ force: true });
+    await this.render({ force: true });
   }
 
   static async inspectItem(_event, target) {
@@ -171,6 +174,9 @@ export class NazumiCompendium extends HandlebarsApplicationMixin(ApplicationV2) 
 
   async _onRender(context, options) {
     await super._onRender(context, options);
+    const grid = this.element.querySelector(".nazumi-grid");
+    if (grid) grid.scrollTop = this._gridScrollTop;
+
     const input = this.element.querySelector("[data-nazumi-search]");
     if (!input) return;
 
