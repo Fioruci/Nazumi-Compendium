@@ -1,0 +1,5 @@
+Nazumi Compendium v0.1.0
+
+The UI code, CSS, demo text, and generated interface sound effects included in this package are original project assets produced for this module. No Elden Ring / FromSoftware artwork, audio, icons, fonts, or other copyrighted game assets are included.
+
+Font Awesome icons referenced by class name are provided by the Foundry VTT interface at runtime and are not redistributed by this package.

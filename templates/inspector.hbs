@@ -1,0 +1,82 @@
+<div class="nazumi-inspector-screen">
+  <div class="nazumi-inspector-backdrop"></div>
+  {{#if missing}}
+    <div class="nazumi-inspector-card nazumi-missing">
+      <h2>Registro indisponivel</h2>
+      <p>O item nao existe mais na fonte configurada.</p>
+      <button type="button" data-action="closeInspector">Fechar</button>
+    </div>
+  {{else}}
+    <button type="button" class="nazumi-overlay-close" data-action="closeInspector" title="Fechar">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <article class="nazumi-inspector-card">
+      <section class="nazumi-inspector-hero">
+        <div class="nazumi-inspector-art">
+          {{#if entry.img}}
+            <img src="{{entry.img}}" alt="{{entry.name}}" />
+          {{else}}
+            <i class="{{entry.icon}}"></i>
+          {{/if}}
+        </div>
+        <div class="nazumi-inspector-heading">
+          <span class="nazumi-eyebrow">{{entry.categoryLabel}}</span>
+          <h1>{{entry.name}}</h1>
+          <div class="nazumi-meta-line">
+            <span>{{entry.subtitle}}</span>
+            <i class="fa-solid fa-diamond"></i>
+            <span>{{entry.rarityLabel}}</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="nazumi-inspector-divider"><span></span><i class="fa-solid fa-diamond"></i><span></span></div>
+
+      <section class="nazumi-inspector-sections">
+        {{#if unlocked}}
+          <div class="nazumi-inspector-section">
+            <h3>EFEITO / MECANICA</h3>
+            <div class="nazumi-richtext">{{{entry.mechanics}}}</div>
+          </div>
+          <div class="nazumi-inspector-section nazumi-lore-section">
+            <h3>REGISTRO</h3>
+            <p>{{entry.lore}}</p>
+          </div>
+        {{else}}
+          <div class="nazumi-inspector-section nazumi-lore-section">
+            <h3>REGISTRO BLOQUEADO</h3>
+            <p>Este conhecimento ainda nao foi descoberto.</p>
+          </div>
+        {{/if}}
+      </section>
+
+      {{#if isGM}}
+        <section class="nazumi-gm-panel">
+          <div class="nazumi-gm-title">
+            <span><i class="fa-solid fa-crown"></i> CONTROLE DO MESTRE</span>
+            <div>
+              {{#if hasSourceDocument}}
+                <button type="button" class="nazumi-subtle-button" data-action="openSourceItem"><i class="fa-solid fa-up-right-from-square"></i> Item</button>
+              {{/if}}
+              <button type="button" class="nazumi-subtle-button" data-action="revealAll"><i class="fa-solid fa-eye"></i> Revelar todos</button>
+              <button type="button" class="nazumi-subtle-button" data-action="hideAll"><i class="fa-solid fa-eye-slash"></i> Ocultar todos</button>
+            </div>
+          </div>
+          <div class="nazumi-player-list">
+            {{#each players}}
+              <button type="button" class="nazumi-player-state {{#if discovered}}discovered{{/if}}" data-action="toggleUserDiscovery" data-user-id="{{id}}">
+                <span class="nazumi-presence {{#if active}}online{{/if}}"></span>
+                <strong>{{name}}</strong>
+                <span>{{#if discovered}}Descoberto{{else}}Oculto{{/if}}</span>
+                <i class="fa-solid {{#if discovered}}fa-eye{{else}}fa-eye-slash{{/if}}"></i>
+              </button>
+            {{else}}
+              <span class="nazumi-no-players">Nenhum jogador cadastrado.</span>
+            {{/each}}
+          </div>
+        </section>
+      {{/if}}
+    </article>
+  {{/if}}
+</div>

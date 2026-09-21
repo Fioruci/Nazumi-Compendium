@@ -1,0 +1,19 @@
+<div class="nazumi-discovery-screen" data-action="closePopup">
+  {{#if entry}}
+    <div class="nazumi-discovery-content">
+      <div class="nazumi-discovery-rule"><span></span><i class="fa-solid fa-diamond"></i><span></span></div>
+      <span class="nazumi-discovery-label">NOVO REGISTRO DESCOBERTO</span>
+      <h1>{{entry.name}}</h1>
+      <div class="nazumi-discovery-icon">
+        {{#if entry.img}}
+          <img src="{{entry.img}}" alt="" />
+        {{else}}
+          <i class="{{entry.icon}}"></i>
+        {{/if}}
+      </div>
+      <span class="nazumi-discovery-type">{{entry.subtitle}}</span>
+      <div class="nazumi-discovery-rule"><span></span><i class="fa-solid fa-diamond"></i><span></span></div>
+      <small>Clique para continuar</small>
+    </div>
+  {{/if}}
+</div>

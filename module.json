@@ -1,0 +1,30 @@
+{
+  "id": "nazumi-compendium",
+  "title": "Nazumi Compendium",
+  "description": "Compendio imersivo de itens para Foundry VTT v13, com descoberta por jogador, itens desconhecidos, marcador NOVO, inspector, audio e controles de GM.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "ACDG / Nazumi Project"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13.350",
+    "maximum": "13"
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/nazumi-compendium.css"
+  ],
+  "socket": true,
+  "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Portugues (Brasil)",
+      "path": "lang/pt-BR.json"
+    }
+  ]
+}

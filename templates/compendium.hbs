@@ -1,0 +1,126 @@
+<div class="nazumi-shell">
+  <div class="nazumi-backdrop"></div>
+  <header class="nazumi-header">
+    <div class="nazumi-title-block">
+      <span class="nazumi-kicker">ARQUIVO DE DESCOBERTAS</span>
+      <h1>COMPENDIO DE NAZUMI</h1>
+      <div class="nazumi-rule"><span></span><i class="fa-solid fa-diamond"></i><span></span></div>
+    </div>
+    <div class="nazumi-header-actions">
+      {{#if isGM}}
+        <button type="button" class="nazumi-icon-button" data-action="refreshSource" title="Recarregar fonte">
+          <i class="fa-solid fa-rotate"></i>
+        </button>
+      {{/if}}
+      <button type="button" class="nazumi-icon-button" data-action="closeApp" title="Fechar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nazumi-category-bar" aria-label="Categorias do compendio">
+    {{#each categories}}
+      <button type="button" class="nazumi-category {{#if active}}active{{/if}}" data-action="selectCategory" data-category="{{id}}">
+        <i class="{{icon}}"></i>
+        <span>{{label}}</span>
+        <small>{{count}}</small>
+      </button>
+    {{/each}}
+  </nav>
+
+  <main class="nazumi-main">
+    <section class="nazumi-browser-panel">
+      <div class="nazumi-browser-toolbar">
+        <label class="nazumi-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="search" data-nazumi-search placeholder="Buscar nos registros..." autocomplete="off" />
+        </label>
+        <div class="nazumi-counter">
+          <strong>{{discoveredCount}}</strong><span>/ {{totalCount}} descobertos</span>
+        </div>
+      </div>
+
+      {{#if sourceIsDemo}}
+        <div class="nazumi-demo-notice">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Modo demonstracao ativo. Configure um Compendium de Items nas configuracoes do modulo para usar seus itens reais.</span>
+        </div>
+      {{/if}}
+
+      <div class="nazumi-grid" role="list">
+        {{#each entries}}
+          <button type="button"
+                  class="nazumi-item-card {{#if selected}}selected{{/if}} {{#if locked}}locked{{/if}}"
+                  data-action="selectItem"
+                  data-source-key="{{sourceKey}}"
+                  data-search="{{searchText}}"
+                  role="listitem">
+            <span class="nazumi-card-art">
+              {{#if displayImg}}
+                <img src="{{displayImg}}" alt="" />
+              {{else}}
+                <i class="{{displayIcon}}"></i>
+              {{/if}}
+            </span>
+            <span class="nazumi-card-copy">
+              <strong>{{displayName}}</strong>
+              <small>{{displaySubtitle}}</small>
+            </span>
+            {{#if isNew}}<span class="nazumi-new-badge">NOVO</span>{{/if}}
+          </button>
+        {{else}}
+          <div class="nazumi-empty-state">
+            <i class="fa-solid fa-circle-nodes"></i>
+            <strong>Nenhum registro nesta categoria.</strong>
+            <span>Revise a fonte ou os metadados dos itens.</span>
+          </div>
+        {{/each}}
+      </div>
+    </section>
+
+    <aside class="nazumi-detail-panel">
+      {{#if selected}}
+        <div class="nazumi-selected-art {{#if selected.locked}}locked{{/if}}">
+          {{#if selected.displayImg}}
+            <img src="{{selected.displayImg}}" alt="{{selected.displayName}}" />
+          {{else}}
+            <i class="{{selected.displayIcon}}"></i>
+          {{/if}}
+          <div class="nazumi-art-vignette"></div>
+        </div>
+
+        <div class="nazumi-selected-copy">
+          <span class="nazumi-eyebrow">{{selected.categoryLabel}}</span>
+          <h2>{{selected.displayName}}</h2>
+          <div class="nazumi-meta-line">
+            <span>{{selected.displaySubtitle}}</span>
+            <i class="fa-solid fa-diamond"></i>
+            <span>{{selected.displayRarity}}</span>
+          </div>
+
+          <div class="nazumi-lore-preview">
+            <p>{{selected.displayLore}}</p>
+          </div>
+
+          {{#if selectedUnlocked}}
+            <button type="button" class="nazumi-primary-button" data-action="inspectItem" data-source-key="{{selected.sourceKey}}">
+              <span>INSPECIONAR</span><i class="fa-solid fa-arrow-right-long"></i>
+            </button>
+          {{else}}
+            <div class="nazumi-locked-hint"><i class="fa-solid fa-lock"></i> Descubra este item para revelar os detalhes.</div>
+          {{/if}}
+        </div>
+      {{else}}
+        <div class="nazumi-empty-detail">
+          <i class="fa-solid fa-book-open"></i>
+          <p>Nenhum registro selecionado.</p>
+        </div>
+      {{/if}}
+    </aside>
+  </main>
+
+  <footer class="nazumi-footer">
+    <span><i class="fa-solid fa-database"></i> {{sourceLabel}}</span>
+    <span>Alt+C · abrir/fechar pelo atalho configuravel</span>
+  </footer>
+</div>
